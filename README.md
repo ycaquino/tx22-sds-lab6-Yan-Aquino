@@ -1,6 +1,6 @@
 # Tech Exchange Software Development Studio Templates
 
-Clone this repository to get started building flask applications.
+Clone this repository to get started building Flask applications.
 
 There are two subdirectories:
 
