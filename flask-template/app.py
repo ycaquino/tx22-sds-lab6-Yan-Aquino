@@ -15,9 +15,9 @@
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
 from flask import Flask
-# from flask import render_template
-# from flask import request
-
+from flask import render_template
+from flask import request
+from model import waterConsumption
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -27,4 +27,19 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    return "hello world"
+    return render_template("index.html")
+
+
+@app.route('/about')
+def about():
+    return "<html><body><h1>This website tells you the water consumption of various countries</body></h1></html>"
+
+
+@app.route('/country', methods=['GET', 'POST'])
+def country():
+    if request.method=="GET":
+        return "You have not filled out the form."
+    else:
+        country = request.form['country']
+        waterAnswer = waterConsumption(country)
+        return render_template("result.html", country=country, answer=waterAnswer)
