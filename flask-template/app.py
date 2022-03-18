@@ -12,11 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# David Williams and Yan Aquino
+
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
 from flask import Flask
-# from flask import render_template
-# from flask import request
+from flask import render_template
+from flask import request
+from model import grading
 
 
 # -- Initialization section --
@@ -27,4 +30,12 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    return "hello world"
+    return render_template('index.html')
+@app.route('/results', methods=['GET', 'POST'])
+def result():
+    if request.method == "GET":
+        return "You have not filled out the form."
+
+    user_answers = {"NY": request.form['New York'], "CA": request.form['California'], "AK": request.form['Alaska'], "FL": request.form["Florida"], "WA": request.form["Washington"]}
+    results = grading(user_answers)
+    return render_template("results.html", NY=results["NY"], CA=results["CA"], AK=results["AK"], FL=results["FL"], WA=results["WA"])
