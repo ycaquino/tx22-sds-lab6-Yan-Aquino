@@ -18,6 +18,8 @@ def grading(user_answers):
     for key, value in user_answers.items(): 
         if correct_answers[key] == value:
             result[key] = "Correct!"
+        if correct_answers[key] == "":
+            result[key] = "You have not given an answer."
         else:
             result[key] = user_answers[key] + "is incorrect! The correct answer is " + correct_answers[key]
     return result
